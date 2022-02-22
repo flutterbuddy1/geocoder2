@@ -1,6 +1,6 @@
 name: geocoder2
 description: Forward and reverse geocoding is Easy Now.
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/codeking5/geocoder2
 
 environment:
