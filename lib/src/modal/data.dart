@@ -15,5 +15,5 @@ class GeoData {
   String state;
   double latitude;
   double longitude;
-  double street_number;
+  String street_number;
 }
