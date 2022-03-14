@@ -19,7 +19,7 @@ class Geocoder2 {
       String country = "";
       String postalCode = "";
       String state = "";
-      double street_number = 0;
+      String street_number = "";
       var addressComponent = fetch.results.first.addressComponents;
       for (var i = 0; i < addressComponent.length; i++) {
         if (addressComponent[i].types.contains("administrative_area_level_2")) {
@@ -35,7 +35,7 @@ class Geocoder2 {
           state = addressComponent[i].longName;
         }
         if (addressComponent[i].types.contains("street_number")) {
-          street_number = double.parse(addressComponent[i].longName);
+          street_number = addressComponent[i].longName;
         }
       }
 
@@ -71,7 +71,7 @@ class Geocoder2 {
       String country = "";
       String postalCode = "";
       String state = "";
-      double street_number = 0;
+      String street_number = "";
       var addressComponent = fetch.results.first.addressComponents;
       for (var i = 0; i < addressComponent.length; i++) {
         if (addressComponent[i].types.contains("administrative_area_level_2")) {
@@ -87,7 +87,7 @@ class Geocoder2 {
           state = addressComponent[i].longName;
         }
         if (addressComponent[i].types.contains("street_number")) {
-          street_number = double.parse(addressComponent[i].longName);
+          street_number = addressComponent[i].longName;
         }
       }
 
