@@ -29,6 +29,9 @@ class Geocoder2 {
         if (addressComponent[i].types.contains("country")) {
           country = addressComponent[i].longName;
         }
+        if (addressComponent[i].types.contains("country")) {
+          countryCode = addressComponent[i].shortName;
+        }
         if (addressComponent[i].types.contains("postal_code")) {
           postalCode = addressComponent[i].longName;
         }
@@ -37,9 +40,6 @@ class Geocoder2 {
         }
         if (addressComponent[i].types.contains("street_number")) {
           streetNumber = addressComponent[i].longName;
-        }
-        if (addressComponent[i].types.contains("country_code")) {
-          countryCode = addressComponent[i].longName;
         }
       }
 
@@ -88,6 +88,9 @@ class Geocoder2 {
         if (addressComponent[i].types.contains("country")) {
           country = addressComponent[i].longName;
         }
+        if (addressComponent[i].types.contains("country")) {
+          countryCode = addressComponent[i].shortName;
+        }
         if (addressComponent[i].types.contains("postal_code")) {
           postalCode = addressComponent[i].longName;
         }
@@ -96,9 +99,6 @@ class Geocoder2 {
         }
         if (addressComponent[i].types.contains("street_number")) {
           streetNumber = addressComponent[i].longName;
-        }
-        if (addressComponent[i].types.contains("country_code")) {
-          countryCode = addressComponent[i].longName;
         }
       }
 
