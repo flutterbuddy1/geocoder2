@@ -1,13 +1,15 @@
 class GeoData {
-  GeoData(
-      {required this.address,
-      required this.city,
-      required this.country,
-      required this.latitude,
-      required this.longitude,
-      required this.postalCode,
-      required this.state,
-      required this.street_number});
+  GeoData({
+    required this.address,
+    required this.city,
+    required this.country,
+    required this.latitude,
+    required this.longitude,
+    required this.postalCode,
+    required this.state,
+    required this.countryCode,
+    required this.street_number,
+  });
   String address;
   String city;
   String country;
@@ -16,4 +18,5 @@ class GeoData {
   double latitude;
   double longitude;
   String street_number;
+  String countryCode;
 }

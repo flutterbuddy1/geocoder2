@@ -24,6 +24,8 @@ import 'package:geocoder2/geocoder2.dart';
     print(data.city);
     //Country Name
     print(data.country);
+    //Country Code
+    print(data.countryCode);
     //Latitude
     print(data.latitude);
     //Longitude
@@ -48,6 +50,8 @@ import 'package:geocoder2/geocoder2.dart';
     print(data.city);
     //Country Name
     print(data.country);
+    //Country Code
+    print(data.countryCode);
     //Latitude
     print(data.latitude);
     //Longitude

@@ -10,7 +10,7 @@ class Geocoder2 {
     var request = http.Request(
         'GET',
         Uri.parse(
-            'https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${googleMapApiKey}'));
+            'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=$googleMapApiKey'));
     http.StreamedResponse response = await request.send();
     if (response.statusCode == 200) {
       String data = await response.stream.bytesToString();
@@ -19,7 +19,8 @@ class Geocoder2 {
       String country = "";
       String postalCode = "";
       String state = "";
-      String street_number = "";
+      String streetNumber = "";
+      String countryCode = "";
       var addressComponent = fetch.results.first.addressComponents;
       for (var i = 0; i < addressComponent.length; i++) {
         if (addressComponent[i].types.contains("administrative_area_level_2")) {
@@ -28,6 +29,9 @@ class Geocoder2 {
         if (addressComponent[i].types.contains("country")) {
           country = addressComponent[i].longName;
         }
+        if (addressComponent[i].types.contains("country")) {
+          countryCode = addressComponent[i].shortName;
+        }
         if (addressComponent[i].types.contains("postal_code")) {
           postalCode = addressComponent[i].longName;
         }
@@ -35,19 +39,21 @@ class Geocoder2 {
           state = addressComponent[i].longName;
         }
         if (addressComponent[i].types.contains("street_number")) {
-          street_number = addressComponent[i].longName;
+          streetNumber = addressComponent[i].longName;
         }
       }
 
       return GeoData(
-          address: fetch.results.first.formattedAddress,
-          city: city,
-          country: country,
-          latitude: latitude,
-          longitude: longitude,
-          postalCode: postalCode,
-          state: state,
-          street_number: street_number);
+        address: fetch.results.first.formattedAddress,
+        city: city,
+        country: country,
+        latitude: latitude,
+        longitude: longitude,
+        postalCode: postalCode,
+        state: state,
+        street_number: streetNumber,
+        countryCode: countryCode,
+      );
     } else {
       return null as GeoData;
     }
@@ -60,7 +66,7 @@ class Geocoder2 {
     var request = http.Request(
         'GET',
         Uri.parse(
-            'https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${googleMapApiKey}'));
+            'https://maps.googleapis.com/maps/api/geocode/json?address=$address&key=$googleMapApiKey'));
 
     http.StreamedResponse response = await request.send();
 
@@ -71,7 +77,9 @@ class Geocoder2 {
       String country = "";
       String postalCode = "";
       String state = "";
-      String street_number = "";
+      String streetNumber = "";
+      String countryCode = "";
+
       var addressComponent = fetch.results.first.addressComponents;
       for (var i = 0; i < addressComponent.length; i++) {
         if (addressComponent[i].types.contains("administrative_area_level_2")) {
@@ -80,6 +88,9 @@ class Geocoder2 {
         if (addressComponent[i].types.contains("country")) {
           country = addressComponent[i].longName;
         }
+        if (addressComponent[i].types.contains("country")) {
+          countryCode = addressComponent[i].shortName;
+        }
         if (addressComponent[i].types.contains("postal_code")) {
           postalCode = addressComponent[i].longName;
         }
@@ -87,19 +98,21 @@ class Geocoder2 {
           state = addressComponent[i].longName;
         }
         if (addressComponent[i].types.contains("street_number")) {
-          street_number = addressComponent[i].longName;
+          streetNumber = addressComponent[i].longName;
         }
       }
 
       return GeoData(
-          address: fetch.results.first.formattedAddress,
-          city: city,
-          country: country,
-          latitude: fetch.results.first.geometry.location.lat,
-          longitude: fetch.results.first.geometry.location.lng,
-          postalCode: postalCode,
-          state: state,
-          street_number: street_number);
+        address: fetch.results.first.formattedAddress,
+        city: city,
+        country: country,
+        latitude: fetch.results.first.geometry.location.lat,
+        longitude: fetch.results.first.geometry.location.lng,
+        postalCode: postalCode,
+        state: state,
+        countryCode: countryCode,
+        street_number: streetNumber,
+      );
     } else {
       return null as GeoData;
     }

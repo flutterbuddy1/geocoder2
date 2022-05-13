@@ -180,14 +180,11 @@ class EnumValues<T> {
 
   EnumValues(map)
       : map = Map.from(map),
-        reverseMap = Map.fromIterable(map.values,
-            key: (v) => v,
-            value: (v) => map.keys.firstWhere((k) => map[k] == v));
+        reverseMap = {
+          for (var v in map.values) v: map.keys.firstWhere((k) => map[k] == v)
+        };
 
   Map<T, String> get reverse {
-    if (reverseMap == null) {
-      reverseMap = map.map((k, v) => new MapEntry(v, k));
-    }
     return reverseMap;
   }
 }
