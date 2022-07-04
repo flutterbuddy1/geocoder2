@@ -3,6 +3,7 @@ import 'package:geocoder2/src/modal/fetch_geocoder.dart';
 import 'package:http/http.dart' as http;
 
 class Geocoder2 {
+  ///Get City ,country , postalCode,state,streetNumber and countryCode from latitude and longitude
   static Future<GeoData> getDataFromCoordinates(
       {required double latitude,
       required double longitude,
@@ -58,7 +59,7 @@ class Geocoder2 {
       return null as GeoData;
     }
   }
-
+  ///Get City ,country , postalCode,state,streetNumber and countryCode from address like "277 Bedford Ave, Brooklyn, NY 11211, USA"
   static Future<GeoData> getDataFromAddress({
     required String address,
     required String googleMapApiKey,
