@@ -1,3 +1,4 @@
+///Model class of the data.
 class GeoData {
   GeoData({
     required this.address,
@@ -8,7 +9,7 @@ class GeoData {
     required this.postalCode,
     required this.state,
     required this.countryCode,
-    required this.street_number,
+    required this.streetNumber,
   });
   String address;
   String city;
@@ -17,6 +18,6 @@ class GeoData {
   String state;
   double latitude;
   double longitude;
-  String street_number;
+  String streetNumber;
   String countryCode;
 }
