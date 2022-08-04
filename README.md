@@ -67,6 +67,9 @@ import 'package:geocoder2/geocoder2.dart';
     print(data.street_number);
 ```
 
+Both methods also have an optional ```language``` parameter to request the results in a specific language.
+Here is the [list of supported language codes](https://developers.google.com/maps/faq#languagesupport).
+
 ### Buy Me A Coffee
 
 <a href="https://www.buymeacoffee.com/flutterbuddy">

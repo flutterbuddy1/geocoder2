@@ -14,10 +14,10 @@ class GeoData {
   String address;
   String city;
   String country;
-  String postalCode;
-  String state;
   double latitude;
   double longitude;
-  String streetNumber;
+  String postalCode;
+  String state;
   String countryCode;
+  String streetNumber;
 }
