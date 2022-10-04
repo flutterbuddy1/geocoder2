@@ -3,7 +3,6 @@
 **Easy forward and reverse geocodeing From google maps api**
 make sure to activate Maps SDK for android and ios and geocode api from  <a href="https://console.cloud.google.com">Google Cloud Console</a> 
 
-
 ## Features
 
 * Easy To Use
@@ -70,11 +69,15 @@ import 'package:geocoder2/geocoder2.dart';
 Both methods also have an optional ```language``` parameter to request the results in a specific language.
 Here is the [list of supported language codes](https://developers.google.com/maps/faq#languagesupport).
 
+
+### Note :
+If you don't have GOOGLE_MAP_API_KEY then you will use [*geocoder_buddy*]('https://pub.dev/packages/geocoder_buddy')
+### Alternative
+[Geocoder Buddy]('https://pub.dev/packages/geocoder_buddy')
+
+
 ### Buy Me A Coffee
 
 <a href="https://www.buymeacoffee.com/flutterbuddy">
 <img src="https://www.buymeacoffee.com/assets/img/guidelines/download-assets-1.svg" height="50" target="_flutterbuddy">
 </a>
-
-### Buy Me A Coffee Using PhonePe
-<img src="https://flutterbuddy.in/payment.jpg" height="200">
