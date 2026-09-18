@@ -1,21 +1,21 @@
 name: geocoder2
 description: Forward and reverse geocoding is Easy Now.
-version: 1.4.0
+version: 1.5.0
 homepage: https://github.com/codeking5/geocoder2
 
 environment:
-  sdk: ">=2.15.0 <3.0.0"
+  sdk: ">=2.17.0 <4.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  http: ^0.13.4
+  http: ">=0.13.4 <2.0.0"
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^1.0.0
+  flutter_lints: ^2.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

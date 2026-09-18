@@ -3,26 +3,35 @@ import 'dart:convert';
 FetchGeocoder fetchGeocoderFromJson(String str) =>
     FetchGeocoder.fromJson(json.decode(str));
 
-String tetchGeocoderToJson(FetchGeocoder data) => json.encode(data.toJson());
+String fetchGeocoderToJson(FetchGeocoder data) => json.encode(data.toJson());
+
+@Deprecated('Use fetchGeocoderToJson instead')
+String tetchGeocoderToJson(FetchGeocoder data) => fetchGeocoderToJson(data);
 
 class FetchGeocoder {
   FetchGeocoder({
     required this.results,
     required this.status,
+    this.errorMessage,
   });
 
   List<Result> results;
   String status;
+  String? errorMessage;
 
   factory FetchGeocoder.fromJson(Map<String, dynamic> json) => FetchGeocoder(
-        results:
-            List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
-        status: json["status"],
+        results: json["results"] != null
+            ? List<Result>.from(
+                (json["results"] as List).map((x) => Result.fromJson(x)))
+            : <Result>[],
+        status: json["status"] ?? "",
+        errorMessage: json["error_message"],
       );
 
   Map<String, dynamic> toJson() => {
         "results": List<dynamic>.from(results.map((x) => x.toJson())),
         "status": status,
+        if (errorMessage != null) "error_message": errorMessage,
       };
 }
 
@@ -42,13 +51,22 @@ class Result {
   List<String> types;
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
-        addressComponents: List<AddressComponent>.from(
-            json["address_components"]
-                .map((x) => AddressComponent.fromJson(x))),
-        formattedAddress: json["formatted_address"],
-        geometry: Geometry.fromJson(json["geometry"]),
-        placeId: json["place_id"],
-        types: List<String>.from(json["types"].map((x) => x)),
+        addressComponents: json["address_components"] != null
+            ? List<AddressComponent>.from(
+                (json["address_components"] as List)
+                    .map((x) => AddressComponent.fromJson(x)))
+            : <AddressComponent>[],
+        formattedAddress: json["formatted_address"] ?? "",
+        geometry: json["geometry"] != null
+            ? Geometry.fromJson(json["geometry"])
+            : Geometry(
+                location: Location(lat: 0.0, lng: 0.0),
+                locationType: LocationType.UNKNOWN,
+              ),
+        placeId: json["place_id"] ?? "",
+        types: json["types"] != null
+            ? List<String>.from((json["types"] as List).map((x) => x.toString()))
+            : <String>[],
       );
 
   Map<String, dynamic> toJson() => {
@@ -74,9 +92,12 @@ class AddressComponent {
 
   factory AddressComponent.fromJson(Map<String, dynamic> json) =>
       AddressComponent(
-        longName: json["long_name"],
-        shortName: json["short_name"],
-        types: List<String>.from(json["types"].map((x) => x)),
+        longName: json["long_name"] ?? "",
+        shortName: json["short_name"] ?? "",
+        types: json["types"] != null
+            ? List<String>.from(
+                (json["types"] as List).map((x) => x.toString()))
+            : <String>[],
       );
 
   Map<String, dynamic> toJson() => {
@@ -96,8 +117,11 @@ class Geometry {
   LocationType locationType;
 
   factory Geometry.fromJson(Map<String, dynamic> json) => Geometry(
-        location: Location.fromJson(json["location"]),
-        locationType: locationTypeValues.map[json["location_type"]],
+        location: json["location"] != null
+            ? Location.fromJson(json["location"])
+            : Location(lat: 0.0, lng: 0.0),
+        locationType: locationTypeValues.map[json["location_type"]] ??
+            LocationType.UNKNOWN,
       );
 
   Map<String, dynamic> toJson() => {
@@ -136,8 +160,8 @@ class Location {
   double lng;
 
   factory Location.fromJson(Map<String, dynamic> json) => Location(
-        lat: json["lat"].toDouble(),
-        lng: json["lng"].toDouble(),
+        lat: (json["lat"] as num?)?.toDouble() ?? 0.0,
+        lng: (json["lng"] as num?)?.toDouble() ?? 0.0,
       );
 
   Map<String, dynamic> toJson() => {
@@ -146,13 +170,20 @@ class Location {
       };
 }
 
-enum LocationType { ROOFTOP, GEOMETRIC_CENTER, APPROXIMATE, RANGE_INTERPOLATED }
+enum LocationType {
+  ROOFTOP,
+  GEOMETRIC_CENTER,
+  APPROXIMATE,
+  RANGE_INTERPOLATED,
+  UNKNOWN,
+}
 
 final locationTypeValues = EnumValues({
   "APPROXIMATE": LocationType.APPROXIMATE,
   "GEOMETRIC_CENTER": LocationType.GEOMETRIC_CENTER,
   "ROOFTOP": LocationType.ROOFTOP,
-  "RANGE_INTERPOLATED": LocationType.RANGE_INTERPOLATED
+  "RANGE_INTERPOLATED": LocationType.RANGE_INTERPOLATED,
+  "UNKNOWN": LocationType.UNKNOWN,
 });
 
 class PlusCode {
@@ -165,8 +196,8 @@ class PlusCode {
   String globalCode;
 
   factory PlusCode.fromJson(Map<String, dynamic> json) => PlusCode(
-        compoundCode: json["compound_code"],
-        globalCode: json["global_code"],
+        compoundCode: json["compound_code"] ?? "",
+        globalCode: json["global_code"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
@@ -179,7 +210,7 @@ class EnumValues<T> {
   Map<String, T> map;
   Map<T, String> reverseMap;
 
-  EnumValues(map)
+  EnumValues(Map<String, T> map)
       : map = Map.from(map),
         reverseMap = {
           for (var v in map.values) v: map.keys.firstWhere((k) => map[k] == v)
